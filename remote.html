@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <!--<meta name = "viewport" content = "initial-scale = .5, user-scalable = no">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />-->
+
+    <script type="text/javascript" src="js/socket.io/socket.io.min.js"></script>
+    <script type="text/javascript" src="js/remote.js"></script>
+
+    <script>
+//        var socket = io.connect('http://localhost:3001');
+        var socket = io.connect('http://10.109.38.188:3001');
+        var remote = new Remote(socket);
+    </script>
+
+    <style>
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container {
+            position: relative;
+            width: 930px;
+            margin: 0 auto;
+            /*background: black;*/
+
+        }
+
+        iframe {
+            /*top:0px;*/
+            /*left: 0px;*/
+            width: 930px;
+            height: 730px;
+            border: none;
+        }
+
+        button {
+            padding: 50px 30px;
+            font-size: 35px;
+            border-radius: 10px;
+            width: 455px;
+            float: left;
+            margin: 5px 5px;
+        }
+    </style>
+</head>
+
+
+<body>
+<div id="container">
+    <iframe src="index.html?sender"></iframe>
+    <button onclick="remote.prev()"><< Back</button>
+    <button onclick="remote.next();">Next >></button>
+</div>
+
+</body>
+</html>
+

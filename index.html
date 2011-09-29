@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+<head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script src='js/slides/slides.js'></script>
+    <script src="js/socket.io/socket.io.min.js"></script>
+    <script src="js/remote.js"></script>
+    <script src="js/graffiti.js"></script>
+
+    <script>
+        //        var socket = io.connect('http://localhost:3001');
+        var socket = io.connect('http://10.109.38.188:3001');
+
+        var remote = new Remote(socket);
+        remote.receiver({
+            prev : function() {
+                prevSlide();
+            },
+            next : function() {
+                nextSlide();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            Graffiti.init(socket, 895, 695);
+
+            if (window.location.href.indexOf("sender") > 0) {
+                Graffiti.sender();
+            }
+            else {
+                Graffiti.receiver();
+            }
+
+            document.addEventListener("slideleave", function(evt) {
+                Graffiti.clear();
+            });
+
+
+        }, false);
+        
+    </script>
+
+</head>
+
+<style>
+        /* Your individual styles here, or just use inline styles if that’s
+     what you want. */
+
+    #graffiti-canvas {
+        position: absolute;
+        margin: 0;
+        /*outline: 5px solid red;*/
+        z-index: 999;
+        overflow: hidden;
+        left: 50%;
+        top: 50%;
+        margin-left: -450px;
+        margin-top: -350px;
+    }
+
+
+</style>
+
+<body style='display: none'>
+
+<section class='slides layout-regular template-shuffle'>
+
+    <!-- Your slides (<article>s) go here. Delete or comment out the
+  slides below. -->
+    <article class='biglogo'>
+    </article>
+
+    <article>
+        <h1>
+            Title Goes Here Up
+            <br>
+            To Two Lines
+        </h1>
+
+        <p>
+            Sergey Brin
+            <br>
+            May 10, 2011
+        </p>
+    </article>
+
+    <article>
+        <p>
+            This is a slide with just text. This is a slide with just text.
+            This is a slide with just text. This is a slide with just text.
+            This is a slide with just text. This is a slide with just text.
+        </p>
+
+        <p>
+            There is more text just underneath.
+        </p>
+    </article>
+
+</section>
+
+</body>
+</html>
