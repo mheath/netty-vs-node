@@ -1,21 +1,13 @@
-var Remote = function(socket) {
-    this.socket = socket;
-};
+var socket = io.connect('http://10.109.38.188:3001');
 
-Remote.prototype.receiver = function(receiver) {
-    this.socket.on('prev', function() {
-        receiver.prev();
+if (window.location.href.indexOf("remote") > 0) {
+    document.addEventListener("slideenter", function(evt) {
+        socket.emit('slideto', {slideNumber: evt.slideNumber});
     });
-
-    this.socket.on('next', function() {
-        receiver.next();
+}
+else{
+    socket.on('slideto', function(data){
+        curSlide = data.slideNumber -1;
+        updateSlides();
     });
-};
-
-Remote.prototype.prev = function() {
-    this.socket.emit('prev');
-};
-
-Remote.prototype.next = function() {
-    this.socket.emit('next');
-};
+}
