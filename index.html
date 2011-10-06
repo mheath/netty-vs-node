@@ -43,6 +43,10 @@
 	<img src="images/netty_logo_600px.svg" />
     </article>
 
+    <article class='fill'>
+		<img src="images/nodejs-900x675.png" />
+    </article>
+
     <article>
         <h1>
             Netty vs. Node.js
@@ -55,9 +59,154 @@
         </p>
     </article>
 
-    <article>
-	    <h2>What are Netty and Node.js?</h2>
+    <article class='fill'>
+		<img src="images/apple_vs_orange.jpg" />
+	    <h2>Why Netty vs. Node.js?</h2>
     </article>
+
+	<article>
+		<h1>Netty</h1>
+		<h2>...asynchronous event-driven network application framework...</h2>
+	</article>
+
+	<article>
+		<h1>Node.js</h1>
+		<h2>Evented I/O for V8 JavaScript.</h2>
+	</article>
+
+	<article class='fill'>
+		<h3>What does it mean to be event-driven?</h3>
+		<img src="images/honda-air-concept-03.jpg" />
+	</article>
+
+	<article class='fill'>
+		<h3>Classic Thread-per-connection Architecture</h3>
+		<img src="images/Classic-Cars-1966-Ford-Mustang.jpg" />
+	</article>
+
+	<article>
+		<h3>Thread-per-connection</h3>
+		<ul class="build">
+			<li>Response to multi-process topology</li>
+			<li>Threads have lower overhead than processes</li>
+			<li>Threads maintain their stack/environment</li>
+			<li>Threads switching is relatively expensive</li>
+			<li>Apache, Tomcat, JBoss, WebSphere, WebLogic, etc.</li>
+		</ul>
+	</article>
+
+	<article>
+		<h3>ASCII Art</h3>
+	<pre>
+
+	(Client Request) ---> [   ]
+	                      [   ] 
+	                      [   ]
+	                      [ W ]
+	                      [ e ]
+	                      [ b ]
+	                      [   ]
+	                      [ S ]
+	                      [ e ]
+	                      [ r ]
+	                      [ v ]
+	                      [ e ]
+	                      [ r ]
+	                      [   ]
+	                      [   ]
+	(Client Response) <-- [   ]
+&nbsp;
+	</pre>
+	</article>
+
+	<article>
+		<h3>ASCII Art</h3>
+	<pre>
+
+	(Client Request) ---> [   ]
+	                      [   ] ---> [ F ]
+	                      [   ]      [ i ]
+	                      [ W ]      [ l ]
+	                      [ e ] <--- [ e ]
+	                      [ b ]
+	                      [   ] ---> [ S ]
+	                      [ S ]      [ e ] ---> [   ]
+	                      [ e ]      [ r ]      [ D ]
+	                      [ r ]      [ v ]      [ a ]
+	                      [ v ]      [ i ]      [ t ]
+	                      [ e ]      [ c ]      [ a ]
+	                      [ r ]      [ e ] <--- [   ]
+	                      [   ] <--- [ s ]
+	                      [   ] 
+	(Client Response) <-- [   ]
+&nbsp;
+	</pre>
+	</article>
+	
+	<article>
+		<h3>ASCII Art</h3>
+	<pre>
+
+	(Client Request) ---> [   ]
+	                      [XXX] ---> [ F ]
+	                      [XXX]      [ i ]
+	                      [XXX]      [ l ]
+	                      [XXX] <--- [ e ]
+	                      [   ]
+	                      [XXX] ---> [   ]
+	                      [XXX]      [XXX] ---> [   ]
+	                      [XXX]      [XXX]      [ D ]
+	                      [XXX]      [XXX]      [ a ]
+	                      [XXX]      [XXX]      [ t ]
+	                      [XXX]      [XXX]      [ a ]
+	                      [XXX]      [XXX] <--- [   ]
+	                      [XXX] <--- [   ]
+	                      [   ] 
+	(Client Response) <-- [   ]
+&nbsp;
+	</pre>
+	</article>
+
+	<article>
+		<h3>Blocking</h3>
+		<ul class="build">
+			<li>Blocked threads maintain state/environment</li>
+			<li>Blocked threads use memory</li>
+			<li>Hardware vendors love this model</li>
+			<li>They sold it to you (IBM, BEA, Sun/Oracle)</li>
+		</ul>
+	</article>
+
+	<article class='fill'>
+		<h3>Who Cares?</h3>
+		<img src="images/brangelina.jpg" />
+	</article>
+
+	<article>
+		<h3>Event-driven Architecture</h3>
+		<ul class="build">
+			<li>Response to thread-per-connection architecture</li>
+			<li>Single thread handles multiple network connections</li>
+			<li>Uses reactor pattern demultiplexing (for your boss)</li>
+			<li>Nginx, Twisted, EventMachine, Netty, Node.js, etc.</li>
+		</ul>
+	</article>
+
+	<article>
+		<h3>Event-driven Architecture</h3>
+		<ul class="build">
+			<li>Response to thread-per-connection architecture</li>
+			<li>Single thread handles multiple network connections</li>
+			<li>Uses reactor pattern demultiplexing (for your boss)</li>
+			<li>Nginx, Twisted, EventMachine, Netty, Node.js, etc.</li>
+		</ul>
+	</article>
+
+	<article class='fill'>
+		<img src="images/human-vs-orc.jpg" />
+		<h3>Enough talk, let's fight! (Leeroy Jenkins)</h3>
+	</article>
+
 	<article>
 		<h3>Node.js</h3>
 		<ul class="build">
@@ -75,9 +224,6 @@
 		</ul>
 	</article>
 
-	<article>
-		<h2>What does it mean to be event-driven?</h2>
-	</article>
 
 	<article>
 		<!-- TODO Expound on this -->
