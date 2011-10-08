@@ -95,10 +95,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="remote.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="remote.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/remote.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="1" selection-start="294" selection-end="294" vertical-scroll-proportion="0.12915128">
+            <state line="7" column="1" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="9" selection-start="20" selection-end="20" vertical-scroll-proportion="0.018450184">
               <folding />
             </state>
           </provider>
@@ -417,7 +426,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/remote.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="1" selection-start="294" selection-end="294" vertical-scroll-proportion="0.12915128">
+        <state line="7" column="1" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="9" selection-start="20" selection-end="20" vertical-scroll-proportion="0.018450184">
           <folding />
         </state>
       </provider>
