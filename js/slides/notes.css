@@ -1,0 +1,36 @@
+#_notes{
+    -webkit-transition: height 1s easein;
+
+    position: absolute;
+    bottom: 0px;
+    z-index: 9999;
+
+    background-color: #aaa;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1.2em;
+    width: 100%;
+
+    box-shadow: 0 -5px 15px #333;
+}
+
+#_notes div:nth-child(1){
+    background:  url('br_down.png') top  no-repeat;
+    height: 30px;
+    cursor: pointer;
+}
+
+#_notes #content{
+    /*padding: 10px;*/
+}
+
+#_notes.hide div:nth-child(1){
+    background:  url('br_up.png') top  no-repeat;
+}
+
+#_notes.hide #content{
+    -webkit-transition: height 1s easein;
+    height: 0px;
+    display: none;
+}
+
+#_notes ul li{}
