@@ -34,6 +34,12 @@
 	.indent {
 		margin-left: 50px;
 	}
+	.code {
+		height: 550px;
+		border: black thin solid;
+		margin-top: 20px;
+		padding: 20px
+	}
 </style>
 
 <body style='display: none'>
@@ -45,6 +51,10 @@
 		<!-- TODO Add Node.js logo -->
 		<img src="images/netty_logo_600px.svg" />
 	</article>
+
+    <article class='fill'>
+		<img src="images/nodejs-900x675.png" />
+    </article>
 
     <article>
         <h1>
@@ -58,25 +68,21 @@
         </p>
     </article>
 
-    <article>
-	    <h2>What are Netty and Node.js?</h2>
+    <article class='fill'>
+		<img src="images/apple_vs_orange.jpg" />
+	    <h2>Why Netty vs. Node.js?</h2>
     </article>
+
 	<article>
-		<h3>Node.js</h3>
-		<ul class="build">
-			<li>Node is the V8 JavaScript engine outside of the browser</li>
-			<li>Has additional APIs for doing network and file I/O</li>
-			<li>Most commonly used for building asynchronous event-driven network applications</li>
-		</ul>
+		<h1>Netty</h1>
+		<h2>...asynchronous event-driven network application framework...</h2>
 	</article>
 
 	<article>
-		<h3>Netty</h3>
-		<ul class="build">
-			<li>Red Hat project for building event-driven network applications</li>
-			<li>Runs on the Java platform</li>
-		</ul>
+		<h1>Node.js</h1>
+		<h2>Evented I/O for V8 JavaScript.</h2>
 	</article>
+
 
 	<article>
 		<h2>What does it mean to be event-driven?</h2>
@@ -85,15 +91,16 @@
 	<article>
 		<h3>Thread-per-connection Architecture</h3>
 		<ul class="build">
-			<li>Each network connection is processed by its own thread</li>
-			<li>This is how most servers work today</li>
+			<li>Each network connection is handled by its own thread</li>
+			<li>Each thread has its own stack for maintaining state</li>
+			<li>Apache, Tomcat, JBoss, WebSphere, WebLogic, etc.</li>
 		</ul>
 	</article>
 
 	<article>
 		<h3>Thread-per-connection Pseudo Code Echo Server</h3>
 		<!-- TODO find a good monospace font -->
-		<div class="build" style="height: 550px; border: black thin solid; margin-top: 20px; padding: 20px">
+		<div class="build code" style="">
 			<p>ServerSocket serverSocket = new ServerSocket(8080);</p>
 			<div>
 				<p>while (true) {</p>
@@ -112,17 +119,38 @@
 	</article>
 
 	<article>
-		<!-- TODO Expound on this -->
-		<h3>Event-driven</h3>
-		<p>In an event-driven architecture, a single thread can handle multiple network connections.</p>
+		<h3>Event-driven Architecture</h3>
+		<ul class="build">
+			<li>More scalable alternative to thread-per-connection architecture</li>
+			<li>Single thread handles multiple network connections</li>
+			<li>Uses reactor pattern for demultiplexing</li>
+			<li>Nginx, Twisted, EventMachine, Netty, Node.js, etc.</li>
+		</ul>
+	</article>
+
+	<article>
+		<!-- Psuedo code -->
 	</article>
 
 	<article>
 		<h3>Event-driven Architecture Myths</h3>
 		<ul class="build">
+			<li>Thread scheduling and context switching are expensive</li>
 			<li>Event-driven servers are always faster</li>
-			<li>Thread-per-connection servers can't scale</li>
-			<li></li>
+			<li>Thread-per-connection servers can't scale to 10,000+ connections</li>
+		</ul>
+	</article>
+
+	<article>
+		<h3>When to use an event-driven architecture?</h3>
+		<ul>
+			<li>Front-end server that doesn't 
+			<li>Long-lived network connections that are often idle
+				<ul>
+					<li>Web sockets</li>
+					<li>Comet</li>
+				</ul>
+			</li>
 		</ul>
 	</article>
 
@@ -133,6 +161,24 @@
 	<article>
 		<h2>Netty</h2>
 	</article>
+
+	<article class='fill'>
+		<img src="images/human-vs-orc.jpg" />
+		<h3>Enough talk, let's fight! (Leeroy Jenkins)</h3>
+	</article>
+
+	<article>
+		<h2>Lines of code</h2>
+	</article>
+
+	<article>
+		<h2>Performance</h2>
+	</article>
+
+	<article>
+		<h2>Community</h2>
+	</article>	
+
 </section>
 
 </body>
