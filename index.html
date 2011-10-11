@@ -129,7 +129,23 @@
 	</article>
 
 	<article>
-		<!-- Psuedo code -->
+		<h3>Event-driven Psuedo Code</h3>
+		<div class="code build">
+			<div>
+				<p>ServerSocket serverSocket = new ServerSocket(8080);</p>
+				<p>Set&lt;Socket&gt; sockets = new Set();</p>
+				<p>sockets.add(serverSocket);
+			</div>
+			<p>while (1) {</p>
+			<div class="indent">
+				<p>event = select(sockets);</p>
+				<p>if (event is connectionEvent) {</p>
+				<p class="indent">sockets.add(event.socket);</p>
+				<p>}</p>
+				<p>processEvent(event);</p>
+			</div>
+			<p>}</p>
+		</div>
 	</article>
 
 	<article>
@@ -137,14 +153,15 @@
 		<ul class="build">
 			<li>Thread scheduling and context switching are expensive</li>
 			<li>Event-driven servers are always faster</li>
+			<li>Threads don't really need 2MB of physical memory for their stack</li>
 			<li>Thread-per-connection servers can't scale to 10,000+ connections</li>
 		</ul>
 	</article>
 
 	<article>
 		<h3>When to use an event-driven architecture?</h3>
-		<ul>
-			<li>Front-end server that doesn't
+		<ul class="build">
+			<li>Front-end server that does mostly pass-through work</li>
 			<li>Long-lived network connections that are often idle
 				<ul>
 					<li>Web sockets</li>
