@@ -1,0 +1,84 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'express' ]
+info using npm@1.0.27
+info using node@v0.4.11
+verbose config file /Users/nacho/.npmrc
+verbose config file /usr/local/etc/npmrc
+silly testEngine { name: 'socket.io',
+silly testEngine   version: '0.8.4',
+silly testEngine   description: 'Real-time apps made cross-browser & easy with a WebSocket-like API',
+silly testEngine   homepage: 'http://socket.io',
+silly testEngine   keywords: 
+silly testEngine    [ 'websocket',
+silly testEngine      'socket',
+silly testEngine      'realtime',
+silly testEngine      'socket.io',
+silly testEngine      'comet',
+silly testEngine      'ajax' ],
+silly testEngine   author: 
+silly testEngine    { name: 'Guillermo Rauch',
+silly testEngine      email: 'guillermo@learnboost.com' },
+silly testEngine   contributors: 
+silly testEngine    [ { name: 'Guillermo Rauch', email: 'rauchg@gmail.com' },
+silly testEngine      { name: 'Arnout Kazemier',
+silly testEngine        email: 'info@3rd-eden.com' },
+silly testEngine      { name: 'Vladimir Dronnikov',
+silly testEngine        email: 'dronnikov@gmail.com' },
+silly testEngine      { name: 'Einar Otto Stangvik',
+silly testEngine        email: 'einaros@gmail.com' } ],
+silly testEngine   repository: 
+silly testEngine    { type: 'git',
+silly testEngine      url: 'git://github.com/LearnBoost/socket.io.git' },
+silly testEngine   dependencies: 
+silly testEngine    { 'socket.io-client': '0.8.4',
+silly testEngine      policyfile: '0.0.4',
+silly testEngine      redis: '0.6.6' },
+silly testEngine   devDependencies: 
+silly testEngine    { expresso: '0.7.7',
+silly testEngine      should: '0.0.4',
+silly testEngine      assertvanish: '0.0.3-1' },
+silly testEngine   main: 'index',
+silly testEngine   engines: { node: '>= 0.4.0' },
+silly testEngine   _npmJsonOpts: 
+silly testEngine    { file: '/Users/nacho/Sites/netty-vs-node/node_modules/socket.io/package.json',
+silly testEngine      wscript: false,
+silly testEngine      contributors: false,
+silly testEngine      serverjs: false },
+silly testEngine   _id: 'socket.io@0.8.4',
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.27',
+silly testEngine   _nodeVersion: 'v0.4.11',
+silly testEngine   _defaultsLoaded: true }
+verbose caching /Users/nacho/Sites/netty-vs-node/node_modules/socket.io/package.json
+verbose loadDefaults socket.io@0.8.4
+verbose into /Users/nacho/Sites/netty-vs-node [ 'express' ]
+verbose cache add express
+verbose cache add [ 'express', null ]
+silly cache add: name, spec, args [ undefined, 'express', [ 'express', null ] ]
+verbose parsed url { pathname: 'express', href: 'express' }
+info addNamed [ 'express', '' ]
+verbose addNamed [ null, '' ]
+verbose GET express
+verbose raw, before any munging express
+verbose url resolving [ 'https://registry.npmjs.org/', './express' ]
+verbose url resolved https://registry.npmjs.org/express
+verbose url parsed { protocol: 'https:',
+verbose url parsed   slashes: true,
+verbose url parsed   host: 'registry.npmjs.org',
+verbose url parsed   hostname: 'registry.npmjs.org',
+verbose url parsed   href: 'https://registry.npmjs.org/express',
+verbose url parsed   pathname: '/express' }
+verbose etag "62818KB6LEKZ6TFUM8VTDJJU8"
+ERR! Error: ECONNREFUSED, Could not contact DNS servers
+ERR!     at IOWatcher.callback (dns.js:74:15)
+ERR! Report this *entire* log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Darwin 11.1.0
+ERR! command "node" "/usr/local/bin/npm" "install" "express"
+ERR! cwd /Users/nacho/Sites/netty-vs-node
+ERR! node -v v0.4.11
+ERR! npm -v 1.0.27
+verbose exit [ 1, true ]
