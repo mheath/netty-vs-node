@@ -29,22 +29,54 @@
 </head>
 
 <style>
-        /* Your individual styles here, or just use inline styles if that’s
-     what you want. */
-	.indent {
-		margin-left: 50px;
+	@font-face {
+	    font-family: 'QlassikMediumRegular';
+	    src: url('font/Qlassik-Medium/Qlassik_TB-webfont.eot');
+	    src: url('font/Qlassik-Medium/Qlassik_TB-webfont.eot?#iefix') format('embedded-opentype'),
+	         url('font/Qlassik-Medium/Qlassik_TB-webfont.woff') format('woff'),
+	         url('font/Qlassik-Medium/Qlassik_TB-webfont.ttf') format('truetype'),
+	         url('font/Qlassik-Medium/Qlassik_TB-webfont.svg#QlassikMediumRegular') format('svg');
+	    font-weight: normal;
+	    font-style: normal;
+
 	}
-	.code {
-		height: 550px;
-		color: #999;
-		margin-top: 20px;
-		padding: 20px;
-		font-family: 'Courier', 'Courier New', monospace;
-		font-weight: bold;
+
+	@font-face {
+	    font-family: 'QlassikBoldRegular';
+	    src: url('font/Qlassik-Medium/QlassikBold_TB-webfont.eot');
+	    src: url('font/Qlassik-Medium/QlassikBold_TB-webfont.eot?#iefix') format('embedded-opentype'),
+	         url('font/Qlassik-Medium/QlassikBold_TB-webfont.woff') format('woff'),
+	         url('font/Qlassik-Medium/QlassikBold_TB-webfont.ttf') format('truetype'),
+	         url('font/Qlassik-Medium/QlassikBold_TB-webfont.svg#QlassikBoldRegular') format('svg');
+	    font-weight: normal;
+	    font-style: normal;
+
 	}
-	pre.small {
-		font-size: 12pt;
-		line-height: 115%;
+
+	article h1, article h3, article h2, article p, article li {
+		font-family: 'QlassikBoldRegular';
+	}
+	
+	article pre {
+		line-height: 34px;
+	}
+	
+	.center {
+		display: block; 
+		margin-left: auto; 
+		margin-right: auto; 
+	}
+	.high {
+		padding: 50px 0 0 0;
+	}
+	.mid {
+		padding: 100px 0 0 0;
+	}
+	.low {
+		padding: 150px 0 0 0;
+	}
+	.xlow {
+		padding: 250px 0 0 0;
 	}
 </style>
 
@@ -56,15 +88,6 @@
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-	<article class='biglogo'>
-		<!-- TODO Add Node.js logo -->
-		<img src="images/netty_logo_600px.svg" />
-	</article>
-
-    <article class='fill'>
-		<img src="images/nodejs-900x675.png" />
-    </article>
 
     <article>
         <h1>
@@ -117,23 +140,18 @@
 
 	<article>
 		<h3>Thread-per-connection Pseudo Code Echo Server</h3>
-		<!-- TODO find a good monospace font -->
-		<div class="build code" style="">
-			<p>ServerSocket serverSocket = new ServerSocket(8080);</p>
-			<div>
-				<p>while (true) {</p>
-				<p class="indent">Socket socket = serverSocket.accept();</p>
-			</div>
-			<div class="indent">
-				<p>new Thread() {</p>
-				<div class="indent">
-					<p>byte[] buffer = socket.read();</p>
-					<p>socket.write(buffer);</p>
-				</div>
-				<p>}.start();</p>
-			</div>
-			<p>}</p>
-		</div>
+<pre>
+	
+    ServerSocket serverSocket = new ServerSocket(8080);
+    while (true) {
+        Socket socket = serverSocket.accept();
+        new Thread() {
+            byte[] buffer = socket.read();
+            socket.write(buffer);
+        }.start();
+    }
+		
+</pre>
 	</article>
 
     <article class='fill'>
@@ -153,22 +171,20 @@
 
 	<article>
 		<h3>Event-driven Psuedo Code</h3>
-		<div class="code build">
-			<div>
-				<p>ServerSocket serverSocket = new ServerSocket(8080);</p>
-				<p>Set&lt;Socket&gt; sockets = new Set();</p>
-				<p>sockets.add(serverSocket);
-			</div>
-			<p>while (1) {</p>
-			<div class="indent">
-				<p>event = select(sockets);</p>
-				<p>if (event is connectionEvent) {</p>
-				<p class="indent">sockets.add(event.socket);</p>
-				<p>}</p>
-				<p>processEvent(event);</p>
-			</div>
-			<p>}</p>
-		</div>
+<pre>
+	
+    ServerSocket serverSocket = new ServerSocket(8080);
+    Set&lt;Socket&gt; sockets = new Set();
+    sockets.add(serverSocket);
+    while (1) {
+        event = select(sockets);
+        if (event is connectionEvent) {
+            sockets.add(event.socket);
+        }
+        processEvent(event);
+    }
+ 
+</pre>
 	</article>
 
 	<article>
@@ -207,6 +223,22 @@
 	<!-- ~~~ Node Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+    <article class='fill'>
+		<img src="images/nodejs-900x675.png" />
+    </article>
+
+    <article class=''>
+		<img src="images/node.js-logo_270x71.png" class='center xlow'/>
+    </article>
+
+    <article class=''>
+		<img src="images/nodejs4.png" class='center mid'/>
+    </article>
+
+    <article class=''>
+		<img src="images/node_f.png" class='center low'/>
+    </article>
+
 	<article>
 		<h3>Node.js</h3>
 		<ul class="build">
@@ -238,16 +270,23 @@
 	<article>
 		<h3>Node Scripts</h3>
 <pre>
-setTimeout(function() {
-	console.log("world");
-}, 1000)
-console.log("hello");
+ 
+    setTimeout(function() {
+	    console.log("world");
+    }, 1000);
+    console.log("hello");
+ 
 </pre>
 	</article>
 	
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Netty Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<article class='biglogo'>
+		<!-- TODO Add Node.js logo -->
+		<img src="images/netty_logo_600px.svg" />
+	</article>
 
 	<article>
 		<h2>Netty</h2>
@@ -330,6 +369,34 @@ console.log("hello");
 	    <h3>Simplicity</h3>
     </article>
 
+	<article>
+		<h3>Node Scripts</h3>
+<pre>
+
+    setTimeout(function() {
+	    console.log("world");
+    }, 1000);
+    console.log("hello");
+ 
+</pre>
+	</article>
+	
+	<article>
+		<h3>Classical Java Equivalent</h3>
+<pre>
+ 
+    try {
+	    System.out.println("hello");
+	    Thread.currentThread().sleep(1000);
+	    System.out.println("world");
+    }
+    catch(InteruptedException ie) {
+	    //If this thread was intrrupted by nother thread 
+    }
+ 
+</pre>
+	</article>
+
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Simplicity Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -384,26 +451,20 @@ console.log("hello");
 	    <h3>Conclusion</h3>
     </article>
 
+
+
+
+
+
+
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Old Stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 
 
-	<article>
-		<h3>Classical Java Equivalent</h3>
-<pre>
-try {
-	System.out.println("hello");
-	Thread.currentThread().sleep(1000);
-	System.out.println("world");
-}
-catch(InteruptedException ie) {
-	//If this thread was intrrupted by nother thread 
-}
-</pre>
-	</article>
-	
+<!-- - Keep this stuff for now - - -
+
 	<article>
 		<h3>Node Web Server</h3>
 <pre>
@@ -553,7 +614,7 @@ public class ConcurrentStack<E> {
 		<p>Under high contention -- when many threads are pounding on a single memory location -- lock-based algorithms start to offer better throughput than nonblocking ones because when a thread blocks, it stops pounding and patiently waits its turn, avoiding further contention. However, contention levels this high are uncommon, as most of the time threads interleave thread-local computation with operations that contend for shared data, giving other threads a chance at the shared data. (Contention levels this high also indicate that reexamining your algorithm with an eye towards less shared data is in order.) The graph in "Going atomic" was somewhat confusing in this regard, as the program being measured was so unrealistically contention-intensive that it appeared that locks were a win for even small numbers of threads.</p>
 	</article>
 	
-
+<-->
 </section>
 
 </body>
