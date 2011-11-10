@@ -52,7 +52,11 @@
 
 <section class='slides layout-regular template-default'>
 
-	<!-- Your slides (<article>s) go here. Delete or comment out the slides below. -->
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
 	<article class='biglogo'>
 		<!-- TODO Add Node.js logo -->
 		<img src="images/netty_logo_600px.svg" />
@@ -74,6 +78,10 @@
         </p>
     </article>
 
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Event Driven ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
     <article class='fill'>
 		<img src="images/apple_vs_orange.jpg" />
 	    <h2>Why Netty vs. Node.js?</h2>
@@ -88,7 +96,6 @@
 		<h1>Node.js</h1>
 		<h2>Evented I/O for V8 JavaScript.</h2>
 	</article>
-
 
 	<article>
 		<h2>What does it mean to be event-driven?</h2>
@@ -187,10 +194,18 @@
 		</ul>
 	</article>
 
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Enough Talk ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
     <article class='fill'>
 		<img src="images/fight.png" />
 	    <h3>Enough talk, let's fight</h3>
     </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Node Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 	<article>
 		<h3>Node.js</h3>
@@ -200,7 +215,7 @@
 			<li>Node can do a lot of things at once</li>
 		</ul>
 	</article>
-	
+
 	<article>
 		<h3>Node.js - Why JavaScript?</h3>
 		<ul class="build">
@@ -209,7 +224,7 @@
 			<li>Why not?</li>
 		</ul>
 	</article>
-	
+
 	<article>
 		<h3>Node.js - Command Line</h3>
 		<ul class="build">
@@ -219,7 +234,7 @@
 			<li>process.memoryUsage()</li>
 		</ul>
 	</article>
-	
+
 	<article>
 		<h3>Node Scripts</h3>
 <pre>
@@ -229,6 +244,152 @@ setTimeout(function() {
 console.log("hello");
 </pre>
 	</article>
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Netty Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<article>
+		<h2>Netty</h2>
+	</article>
+
+	<article>
+		<h3>Netty History</h3>
+		<ul class="build">
+			<li>Started in 2003</li>
+			<li>Migrated to Apache Software Foundation as Apache MINA</li>
+			<li>Left Apache and moved to Red Hat/JBoss in 2008</li>
+		</ul>
+	</article>
+	
+	<article>
+		<h3>Netty Architecture</h3>
+		<div style="margin: 25px;   ">
+			<img src="images/netty-architecture.png" width="100%" />
+		</div>
+	</article>
+
+	<article>
+		<h3>Key Netty Features</h3>
+		<ul class="build">
+			<li>Unified event API for Sockets, UDP, SCTP, Infiniband</li>
+			<li>Minimizes memory copies</li>
+			<li>Fair read/write ratio</li>
+			<li>Customizable thread model</li>
+		</ul>
+	</article>
+
+	<article>
+		<h3>Netty Pipeline</h3>
+		<div style="margin: 25px; text-align: center">
+			<img src="images/netty_pipeline_after.png" height="90%" />
+		</div>
+	</article>
+
+	<article>
+		<h2>Netty Demo</h2>
+	</article>
+
+	<article>
+		<h3>Projects built on Netty</h3>
+		<ul>
+			<li>Node.x (just had 0.1 release Monday, Oct. 10)</li>
+			<li>Akka - Scala distributed actor based framework</li>
+			<li>Netty Tools - Simplifies common tasks in Netty</li>
+			<li>AsyncHttpClient - Written by Jean-Francois Arcand (creator of Grizzly)</li>
+			<li>ADBCJ - Asynchronous Database Client</li>
+			<li>Play - Scala based web framework</li>
+			<li>PS3 Media Server</li>
+		</ul>
+	</article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Threading: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/thread.jpg" />
+	    <h3>Threading</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Threading Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/tangle.jpg" />
+	    <h3>Threading Rebuttal</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Simplicity: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/piece-of-cake.jpg" />
+	    <h3>Simplicity</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Simplicity Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/bugatti-engine.jpg" />
+	    <h3>Simplicity Rebuttal</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Performance: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/bugatti-veyron.jpg" />
+	    <h3>Performance</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Performance Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/honda-bike.jpg" />
+	    <h3>Performance Rebuttal</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Problem Fit: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/honda-indy-car.JPG" />
+	    <h3>Right Tool: Language Fit</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Problem Fit Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/audi-shark.JPG" />
+	    <h3>Right Tool Rebuttal: Language Fit</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Conclusion ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <article class='fill'>
+		<img src="images/excavator.jpg" />
+	    <h3>Conclusion</h3>
+    </article>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~ Old Stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
 	<article>
 		<h3>Classical Java Equivalent</h3>
 <pre>
@@ -392,59 +553,6 @@ public class ConcurrentStack<E> {
 		<p>Under high contention -- when many threads are pounding on a single memory location -- lock-based algorithms start to offer better throughput than nonblocking ones because when a thread blocks, it stops pounding and patiently waits its turn, avoiding further contention. However, contention levels this high are uncommon, as most of the time threads interleave thread-local computation with operations that contend for shared data, giving other threads a chance at the shared data. (Contention levels this high also indicate that reexamining your algorithm with an eye towards less shared data is in order.) The graph in "Going atomic" was somewhat confusing in this regard, as the program being measured was so unrealistically contention-intensive that it appeared that locks were a win for even small numbers of threads.</p>
 	</article>
 	
-	<article>
-		<h2>Netty</h2>
-	</article>
-
-	<article>
-		<h3>Netty History</h3>
-		<ul class="build">
-			<li>Started in 2003</li>
-			<li>Migrated to Apache Software Foundation as Apache MINA</li>
-			<li>Left Apache and moved to Red Hat/JBoss in 2008</li>
-		</ul>
-	</article>
-	
-	<article>
-		<h3>Netty Architecture</h3>
-		<div style="margin: 25px;   ">
-			<img src="images/netty-architecture.png" width="100%" />
-		</div>
-	</article>
-
-	<article>
-		<h3>Key Netty Features</h3>
-		<ul class="build">
-			<li>Unified event API for Sockets, UDP, SCTP, Infiniband</li>
-			<li>Minimizes memory copies</li>
-			<li>Fair read/write ratio</li>
-			<li>Customizable thread model</li>
-		</ul>
-	</article>
-
-	<article>
-		<h3>Netty Pipeline</h3>
-		<div style="margin: 25px; text-align: center">
-			<img src="images/netty_pipeline_after.png" height="90%" />
-		</div>
-	</article>
-
-	<article>
-		<h2>Netty Demo</h2>
-	</article>
-
-	<article>
-		<h3>Projects built on Netty</h3>
-		<ul>
-			<li>Node.x (just had 0.1 release Monday, Oct. 10)</li>
-			<li>Akka - Scala distributed actor based framework</li>
-			<li>Netty Tools - Simplifies common tasks in Netty</li>
-			<li>AsyncHttpClient - Written by Jean-Francois Arcand (creator of Grizzly)</li>
-			<li>ADBCJ - Asynchronous Database Client</li>
-			<li>Play - Scala based web framework</li>
-			<li>PS3 Media Server</li>
-		</ul>
-	</article>
 
 </section>
 
