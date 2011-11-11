@@ -1,2 +1,6 @@
 .idea/
 logs/
+
+logs/error_log
+
+logs/access_log
