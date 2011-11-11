@@ -568,6 +568,8 @@ article.fill img {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
 
+	width: 100%;
+
     z-index: -1;
 }
 
