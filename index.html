@@ -193,7 +193,7 @@
 			<li>Thread scheduling and context switching are expensive</li>
 			<li>Event-driven servers are always faster</li>
 			<li>Threads need 2MB of physical memory for their stack</li>
-			<li>Thread-per-connection servers can't scale to 10,000+ connections</li>
+			<li>Thread-per-connection servers can't scale (Tomcat runs with 32,000 threads on my box)</li>
 		</ul>
 	</article>
 
@@ -242,7 +242,7 @@
 	<article>
 		<h3>Node.js</h3>
 		<ul class="build">
-			<li>Set of libraries on top of V8 to do networking things -ry</li>
+			<li>Set of libraries on top of V8 to do networking things</li>
 			<li>Almost no function in Node directly performs I/O, so the process never blocks.</li>
 			<li>Node can do a lot of things at once</li>
 		</ul>
@@ -298,7 +298,7 @@
 			<li>Started in 2003</li>
 			<li>Migrated to Apache Software Foundation as Apache MINA</li>
 			<li>Left Apache and moved to Red Hat/JBoss in 2008</li>
-			<li>Twitter currently employes most Netty contributors</li>
+			<li>Twitter currently employs most Netty contributors</li>
 		</ul>
 	</article>
 	
@@ -388,11 +388,11 @@
  
     try {
 	    System.out.println("hello");
-	    Thread.currentThread().sleep(1000);
+	    Thread.sleep(1000);
 	    System.out.println("world");
     }
     catch(InteruptedException ie) {
-	    //If this thread was intrrupted by nother thread 
+	    //If this thread was interrupted by another thread 
     }
  
 </pre>
@@ -403,10 +403,103 @@
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
     <article class='fill'>
-		<img src="images/bugatti-engine.jpg" />
-	    <h3>Simplicity Rebuttal</h3>
+        <img src="images/bugatti-engine.jpg" />
+        <h3>Simplicity Rebuttal</h3>
     </article>
 
+    <article>
+        <h3>Is Node really simpler?</h3>
+        <ul>
+            <li>Threads can certainly be complicated</li>
+            <li>Purely event-driven code can be even more complicated</li>
+        </ul>
+    </article>
+
+    <article>
+        <h3>Example Twitter client in Node</h3>
+<pre>
+    function handleRequest(req, resp) {
+        var userId = getUserId(req);
+        lookupTwitterId(userId,
+            function(twitterId, consumerKey, consumerSecret) {
+                cache.lookup(twitterId, function(result)) {
+                    if (result) {
+                        sendTwitterStream(resp, result);
+                    } else {
+                        var twit = new twitter({consumer_key: ... });
+                        twit.stream('user', function(stream) {
+                            sendTwitterStream(resp, stream);
+                            cache.put(twitterId, stream);
+                        });
+                    }
+                }
+            });
+    }
+</pre>
+    </article>
+
+    <article>
+        <h3>There's a problem with our Node example...</h3>
+        <h2>What do we do if something fails?</h2>
+    </article>
+    
+    <article>
+        <h3>Revised Twitter client in Node</h3>
+<pre>
+    function handleRequest(req, resp) {
+        var userId = getUserId(req);
+        lookupTwitterId(userId,
+            function(error, twitterId, consumerKey, consumerSecret) {
+                if (error) { sendErrorResponse(error, resp); }
+                cache.lookup(twitterId, function(error, result)) {
+                    if (error) { sendErrorResponse(error, resp); }
+                    if (result) {
+                        sendTwitterStream(resp, result);
+                    } else {
+                        var twit = new twitter({consumer_key: ... });
+                        twit.stream('user', function(error, stream) {
+                            if (error) { sendErrorResponse(error, resp); }
+                            sendTwitterStream(resp, stream);
+                            cache.put(twitterId, stream, 300);
+                        });
+                    }
+                }
+            });
+    }
+</pre>
+    </article>
+
+    <article>
+        <h3>Netty Gives You More Options</h3>
+        <ul>
+            <li>Netty isn't constrained to a single model for concurrency</li>
+            <li>Has a powerful event-driven model where scalability is needed</li>
+            <li>Lets you step down to an imperative model for simplicity using threads</li>
+        </ul>
+    </article>
+
+    <article>
+        <h3>Example Twitter Client in Netty</h3>
+<pre>
+    public void handleRequest(HttpRequest req, Channel channel) {
+        try {
+            String userId = getUserId(req);
+            TwitterCredentials creds = lookupTwitterCreds(userId);
+            Twitter twitter = new TwitterTemplate(creds);
+            Stream stream = fetchStream(userId, twitter);
+            sendTwitterStream(channel, stream);
+        } catch (Exception e) {
+            sendErrorResponse(e, channel);
+        }
+    }
+    
+    @ResponseCache(lifetime=300)
+    Stream fetchStream(@CacheKey String userId, Twitter twitter) {
+        return twit.userStream();
+    }
+</pre>
+    </article>
+    
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Performance: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -441,6 +534,15 @@
     <article class='fill'>
 		<img src="images/audi-shark.JPG" />
 	    <h3>Right Tool Rebuttal: Language Fit</h3>
+    </article>
+
+    <article>
+        <h3>Netty is Not Limited to the Java Language</h3>
+        <ul>
+            <li>Many different languages run on the JVM</li>
+            <li>Scala and Clojure are probably even better than JavaScript for writing event-driven code</li>
+            <li>Node doesn't have a monopoly on server-side JavaScript (JavaScript runs on the JVM too!)</li>
+        </ul>
     </article>
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
