@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 		ServerBootstrap bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(
 				Executors.newCachedThreadPool(),
-				Executors.newCachedThreadPool(), 1
+				Executors.newCachedThreadPool()
 		));
 		bootstrap.setPipelineFactory(new HttpServerPipelineFactory());
 
