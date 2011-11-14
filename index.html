@@ -380,6 +380,43 @@
 	    <h3>Threading Rebuttal</h3>
     </article>
 
+    <article>
+        <h3>Threads</h3>
+        <ul>
+            <li>Easy to write<li>
+            <li>Hard to get right</li>
+            <li>Impossible to debug</li>
+        </ul>
+    </article>
+
+	<article>
+		<h3>Node Cluster</h3>
+		<pre style="line-height: 23px">
+			
+    var cluster = require('cluster');
+    var http = require('http');
+    var numCPUs = require('os').cpus().length;
+
+    if (cluster.isMaster) {
+        // Fork workers.
+        for (var i = 0; i < numCPUs; i++) {
+            cluster.fork();
+        }
+
+        cluster.on('death', function(worker) {
+            console.log('worker ' + worker.pid + ' died');
+        });
+    } else {
+        // Worker processes have a http server.
+        http.Server(function(req, res) {
+            res.writeHead(200);
+            res.end("hello world\n");
+        }).listen(8000);
+    }		
+	
+		</pre>	
+	</article>
+	
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Simplicity: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
