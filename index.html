@@ -362,6 +362,15 @@
 	    <h3>Threading</h3>
     </article>
 
+    <article>
+        <h3>Concurrency models</h3>
+        <ul>
+            <li>Netty runs on the JVM so it is not tied to a single concurrency model<li>
+            <li>With Netty you can use purely event-driven (ala Node), multi-threaded, actors, etc.</li>
+            <li>Without threads, any heavy computation will prevent events from being processed</li>
+        </ul>
+    </article>
+
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~ Threading Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
