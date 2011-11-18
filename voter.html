@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=1.0; user-scalable=no;" />
+        <link rel="stylesheet" href="css/voter.css" />
+        <title>Connect Mobile</title>
+		<script src="js/lib/socket.io/socket.io.min.js"></script>
+		<script src="js/voter-connection.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			function showButtons(socket) {
+				var buttons = document.getElementById('vote');
+				buttons.style.display = 'block';
+				
+				var button = buttons.getElementsByTagName('div');
+				for (var i = 0; i < button.length; i++) {
+					button[i].addEventListener("click", (function() {
+						var value = i - 2;
+						return function(e) {
+							document.getElementsByClassName('selected')[0].className = '';
+							this.className = 'selected'
+							console.log("Voting " + value);
+							socket.emit('vote', value);
+						}
+					})());
+				}
+			}
+			function setScore(score) {
+				var scoreboard = document.getElementById('scoreboard').getElementsByClassName('score');
+				scoreboard[0].innerHTML = score.neg;
+				scoreboard[1].innerHTML = score.pos;
+			}
+		</script>
+    </head>
+    <body onload='connect(showButtons)'>
+		<div id='bg-left'></div>
+		<div id='bg-right'></div>
+		<div id='scoreboard'>
+			<div><img src='img/nettylogo60.png' /></div>
+			<div class='score'>0</div>
+			<div class='main'><img src='img/ChromeRimmedLogo.png' /></div>
+			<div class='score'>0</div>
+			<div><img src='img/nodelogo60.png' /></div>
+		</div>
+		<div id='vote'>
+			<div><span>2</span></div>
+			<div><span>1</span></div>
+			<div class='selected'><span>0</span></div>
+			<div><span>1</span></div>
+			<div><span>2</span></div>
+		</div>
+    </body>
+</html>

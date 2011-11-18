@@ -13,712 +13,745 @@
 -->
 
 <html>
-<head>
-    <title>Presentation</title>
+	<head>
+	    <title>Presentation</title>
 
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=980">
+	    <meta charset='utf-8'>
+	    <meta name="viewport" content="width=980">
 
-    <script src='js/slides/slides.js'></script>
-    <!--<script src="js/socket.io/socket.io.min.js"></script>-->
-    <!--<script src="js/remote.js"></script>-->
+	    <script src='js/slides/slides.js'></script>
+		<script src="js/lib/socket.io/socket.io.min.js" charset="utf-8"></script>
+		<script src="js/display-connection.js" charset="utf-8"></script>
+		<script src="js/opinion-scale.js" charset="utf-8"></script>
 
-    <script>
-    </script>
+		<script>
+			var scale;
+			function initOpinionScale() {
+				var green 		= new RGBA(122, 179, 50, .75),
+					gold75 		= new RGBA(255, 247, 154, 0.75),
+					gold50 		= new RGBA(255, 247, 154, 0.5),
+					gold25 		= new RGBA(255, 247, 154, 0.25),
+					red 		= new RGBA(255, 9, 20, 0.75),
+					blue 		= new RGBA(0, 173, 239, 0.75),
+					purple 		= new RGBA(235, 0, 137, 0.75);
+				scale = OpinionScale(green, gold50, "img/nettylogo100.png", "img/nodelogo100.png"); // Gold | Gold
 
-</head>
+				document.getElementsByTagName('body')[0].addEventListener('keydown', function(e) {
+					if (e.keyCode === 83) {
+						document.getElementById('canvas').style.display = 'block';						
+					}
+					if (e.keyCode === 72) {
+						document.getElementById('canvas').style.display = 'none';						
+					}
+				});
+			}
+		</script>
+	</head>
 
-<style>
-	@font-face {
-	    font-family: 'QlassikMediumRegular';
-	    src: url('font/Qlassik-Medium/Qlassik_TB-webfont.eot');
-	    src: url('font/Qlassik-Medium/Qlassik_TB-webfont.eot?#iefix') format('embedded-opentype'),
-	         url('font/Qlassik-Medium/Qlassik_TB-webfont.woff') format('woff'),
-	         url('font/Qlassik-Medium/Qlassik_TB-webfont.ttf') format('truetype'),
-	         url('font/Qlassik-Medium/Qlassik_TB-webfont.svg#QlassikMediumRegular') format('svg');
-	    font-weight: normal;
-	    font-style: normal;
+	<style>
+		@font-face {
+		    font-family: 'QlassikMediumRegular';
+		    src: url('font/Qlassik-Medium/Qlassik_TB-webfont.eot');
+		    src: url('font/Qlassik-Medium/Qlassik_TB-webfont.eot?#iefix') format('embedded-opentype'),
+		         url('font/Qlassik-Medium/Qlassik_TB-webfont.woff') format('woff'),
+		         url('font/Qlassik-Medium/Qlassik_TB-webfont.ttf') format('truetype'),
+		         url('font/Qlassik-Medium/Qlassik_TB-webfont.svg#QlassikMediumRegular') format('svg');
+		    font-weight: normal;
+		    font-style: normal;
 
-	}
+		}
 
-	@font-face {
-	    font-family: 'QlassikBoldRegular';
-	    src: url('font/Qlassik-Medium/QlassikBold_TB-webfont.eot');
-	    src: url('font/Qlassik-Medium/QlassikBold_TB-webfont.eot?#iefix') format('embedded-opentype'),
-	         url('font/Qlassik-Medium/QlassikBold_TB-webfont.woff') format('woff'),
-	         url('font/Qlassik-Medium/QlassikBold_TB-webfont.ttf') format('truetype'),
-	         url('font/Qlassik-Medium/QlassikBold_TB-webfont.svg#QlassikBoldRegular') format('svg');
-	    font-weight: normal;
-	    font-style: normal;
+		@font-face {
+		    font-family: 'QlassikBoldRegular';
+		    src: url('font/Qlassik-Medium/QlassikBold_TB-webfont.eot');
+		    src: url('font/Qlassik-Medium/QlassikBold_TB-webfont.eot?#iefix') format('embedded-opentype'),
+		         url('font/Qlassik-Medium/QlassikBold_TB-webfont.woff') format('woff'),
+		         url('font/Qlassik-Medium/QlassikBold_TB-webfont.ttf') format('truetype'),
+		         url('font/Qlassik-Medium/QlassikBold_TB-webfont.svg#QlassikBoldRegular') format('svg');
+		    font-weight: normal;
+		    font-style: normal;
 
-	}
+		}
 
-	article h1, article h3, article h2, article p, article li {
-		font-family: 'QlassikBoldRegular';
-	}
+		article h1, article h3, article h2, article p, article li {
+			font-family: 'QlassikBoldRegular';
+		}
 	
-	article pre {
-		line-height: 34px;
-	}
+		article pre {
+			line-height: 34px;
+		}
 	
-	.center {
-		display: block; 
-		margin-left: auto; 
-		margin-right: auto; 
-	}
-	.high {
-		padding: 50px 0 0 0;
-	}
-	.mid {
-		padding: 100px 0 0 0;
-	}
-	.low {
-		padding: 150px 0 0 0;
-	}
-	.xlow {
-		padding: 250px 0 0 0;
-	}
-</style>
-
-<body style='display: none'>
-
-<section class='slides layout-regular template-default'>
-
+		.center {
+			display: block; 
+			margin-left: auto; 
+			margin-right: auto; 
+		}
+		.high {
+			padding: 50px 0 0 0;
+		}
+		.mid {
+			padding: 100px 0 0 0;
+		}
+		.low {
+			padding: 150px 0 0 0;
+		}
+		.xlow {
+			padding: 250px 0 0 0;
+		}
 	
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		.canvas {
+			position: relative;
+			top: 84%;
+			margin-left: auto;
+			margin-right: auto;
+			width: 700px;
+			height: 100px;
+		}
+		#canvas {
+			display: none;
+		}
+	</style>
 
-    <article>
-        <h1>
-            Netty vs. Node.js
-        </h1>
 
-        <p>
-            Mike Heath
-            <br/>
-            Tom Valletta
-        </p>
-    </article>
-
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Event Driven ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-    <article class='fill'>
-		<img src="images/apple_vs_orange.jpg" />
-		<h2>Why Netty vs. Node.js?</h2>
-	</article>
-
-	<article>
-		<h1>Netty</h1>
-		<h2>...asynchronous event-driven network application framework...</h2>
-	</article>
-
-	<article>
-		<h1>Node.js</h1>
-		<h2>Evented I/O for V8 JavaScript.</h2>
-	</article>
-
-	<article>
-		<h2>What does it mean to be event-driven?</h2>
-	</article>
-
-    <article class='fill'>
-		<img src="images/Classic-Cars-1966-Ford-Mustang.jpg" />
-	    <h3>Thread-per-connection Architecture</h3>
-    </article>
-
-	<article>
-		<h3>Thread-per-connection Architecture</h3>
-		<ul class="build">
-			<li>Each network connection is handled by its own thread</li>
-			<li>Each thread has its own stack for maintaining state</li>
-			<li>Apache, Tomcat, JBoss, PHP, Rails, etc.</li>
-		</ul>
-	</article>
-
-	<article>
-		<h3>Thread-per-connection Pseudo Code Echo Server</h3>
-<pre>
+<body style='display: none' onload='connect(initOpinionScale)'>
+	<section class='slides layout-regular template-default'>
 	
-    ServerSocket serverSocket = new ServerSocket(8080);
-    while (true) {
-        Socket socket = serverSocket.accept();
-        new Thread() {
-            byte[] buffer = socket.read();
-            socket.write(buffer);
-        }.start();
-    }
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	    <article>
+	        <h1>
+	            Netty vs. Node.js
+	        </h1>
+
+	        <p>
+	            Mike Heath
+	            <br/>
+	            Tom Valletta
+	        </p>
+	    </article>
+
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Event Driven ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	    <article class='fill'>
+			<img src="images/apple_vs_orange.jpg" />
+			<h2>Why Netty vs. Node.js?</h2>
+		</article>
+
+		<article>
+			<h1>Netty</h1>
+			<h2>...asynchronous event-driven network application framework...</h2>
+		</article>
+
+		<article>
+			<h1>Node.js</h1>
+			<h2>Evented I/O for V8 JavaScript.</h2>
+		</article>
+
+		<article>
+			<h2>What does it mean to be event-driven?</h2>
+		</article>
+
+	    <article class='fill'>
+			<img src="images/Classic-Cars-1966-Ford-Mustang.jpg" />
+		    <h3>Thread-per-connection Architecture</h3>
+	    </article>
+
+		<article>
+			<h3>Thread-per-connection Architecture</h3>
+			<ul class="build">
+				<li>Each network connection is handled by its own thread</li>
+				<li>Each thread has its own stack for maintaining state</li>
+				<li>Apache, Tomcat, JBoss, PHP, Rails, etc.</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Thread-per-connection Pseudo Code Echo Server</h3>
+	<pre>
+	
+	    ServerSocket serverSocket = new ServerSocket(8080);
+	    while (true) {
+	        Socket socket = serverSocket.accept();
+	        new Thread() {
+	            byte[] buffer = socket.read();
+	            socket.write(buffer);
+	        }.start();
+	    }
 		
-</pre>
-	</article>
+	</pre>
+		</article>
 
-    <article class='fill'>
-		<img src="images/honda-air-concept-03.jpg" />
-	    <h3>Event-driven Architecture</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/honda-air-concept-03.jpg" />
+		    <h3>Event-driven Architecture</h3>
+	    </article>
 
-	<article>
-		<h3>Event-driven Architecture</h3>
-		<ul class="build">
-			<li>More scalable alternative to thread-per-connection architecture</li>
-			<li>Single thread handles multiple network connections</li>
-			<li>Uses reactor pattern for demultiplexing</li>
-			<li>Nginx, Twisted, EventMachine, Grizzly, Netty, Node.js, etc.</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Event-driven Architecture</h3>
+			<ul class="build">
+				<li>More scalable alternative to thread-per-connection architecture</li>
+				<li>Single thread handles multiple network connections</li>
+				<li>Uses reactor pattern for demultiplexing</li>
+				<li>Nginx, Twisted, EventMachine, Grizzly, Netty, Node.js, etc.</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Event-driven Psuedo Code</h3>
-<pre>
+		<article>
+			<h3>Event-driven Psuedo Code</h3>
+	<pre>
 	
-    ServerSocket serverSocket = new ServerSocket(8080);
-    Set&lt;Socket&gt; sockets = new Set();
-    sockets.add(serverSocket);
-    while (1) {
-        event = select(sockets);
-        if (event is connectionEvent) {
-            sockets.add(event.socket);
-        }
-        processEvent(event);
-    }
+	    ServerSocket serverSocket = new ServerSocket(8080);
+	    Set&lt;Socket&gt; sockets = new Set();
+	    sockets.add(serverSocket);
+	    while (1) {
+	        event = select(sockets);
+	        if (event is connectionEvent) {
+	            sockets.add(event.socket);
+	        }
+	        processEvent(event);
+	    }
  
-</pre>
-	</article>
+	</pre>
+		</article>
 
-	<article>
-		<h3>Event-driven Architecture Myths</h3>
-		<ul class="build">
-			<li>Thread scheduling and context switching are expensive</li>
-			<li>Event-driven servers are always faster</li>
-			<li>Threads need 2MB of physical memory for their stack</li>
-			<li>Thread-per-connection servers can't scale (Tomcat runs with 32,000 threads on my box)</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Event-driven Architecture Myths</h3>
+			<ul class="build">
+				<li>Thread scheduling and context switching are expensive</li>
+				<li>Event-driven servers are always faster</li>
+				<li>Threads need 2MB of physical memory for their stack</li>
+				<li>Thread-per-connection servers can't scale (Tomcat runs with 32,000 threads on my box)</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>When to use an event-driven architecture?</h3>
-		<ul class="build">
-			<li>Front-end server that does mostly pass-through work</li>
-			<li>Long-lived network connections that are often idle
-				<ul>
-					<li>Web sockets</li>
-					<li>Comet</li>
-				</ul>
-			</li>
-		</ul>
-	</article>
+		<article>
+			<h3>When to use an event-driven architecture?</h3>
+			<ul class="build">
+				<li>Front-end server that does mostly pass-through work</li>
+				<li>Long-lived network connections that are often idle
+					<ul>
+						<li>Web sockets</li>
+						<li>Comet</li>
+					</ul>
+				</li>
+			</ul>
+		</article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Enough Talk ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Enough Talk ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/fight.png" />
-	    <h3>Enough talk, let's fight</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/fight.png" />
+		    <h3>Enough talk, let's fight</h3>
+	    </article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Node Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Node Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/nodejs-900x675.png" />
-    </article>
+	    <article class='fill'>
+			<img src="images/nodejs-900x675.png" />
+	    </article>
 
-    <article class=''>
-		<img src="images/node.js-logo_270x71.png" class='center xlow'/>
-    </article>
+	    <article class=''>
+			<img src="images/node.js-logo_270x71.png" class='center xlow'/>
+	    </article>
 
-    <article class=''>
-		<img src="images/nodejs4.png" class='center mid'/>
-    </article>
+	    <article class=''>
+			<img src="images/nodejs4.png" class='center mid'/>
+	    </article>
 
-    <article class=''>
-		<img src="images/node_f.png" class='center low'/>
-    </article>
+	    <article class=''>
+			<img src="images/node_f.png" class='center low'/>
+	    </article>
 
-	<article>
-		<h3>Node.js</h3>
-		<ul class="build">
-			<li>Set of libraries on top of V8 to do networking things</li>
-			<li>Almost no function in Node directly performs I/O, so the process never blocks.</li>
-			<li>Node can do a lot of things at once</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Node.js</h3>
+			<ul class="build">
+				<li>Set of libraries on top of V8 to do networking things</li>
+				<li>Almost no function in Node directly performs I/O, so the process never blocks.</li>
+				<li>Node can do a lot of things at once</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Node.js - Why JavaScript?</h3>
-		<ul class="build">
-			<li>JavaScript is non-blocking</li>
-			<li>The web runs JavaScript</li>
-			<li>Why not?</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Node.js - Why JavaScript?</h3>
+			<ul class="build">
+				<li>JavaScript is non-blocking</li>
+				<li>The web runs JavaScript</li>
+				<li>Why not?</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Node.js - Command Line</h3>
-		<ul class="build">
-			<li>process.pid</li>
-			<li>process.platform</li>
-			<li>process.versions</li>
-			<li>process.memoryUsage()</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Node.js - Command Line</h3>
+			<ul class="build">
+				<li>process.pid</li>
+				<li>process.platform</li>
+				<li>process.versions</li>
+				<li>process.memoryUsage()</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Node Scripts</h3>
-<pre>
+		<article>
+			<h3>Node Scripts</h3>
+	<pre>
  
-    setTimeout(function() {
-	    console.log("world");
-    }, 1000);
-    console.log("hello");
+	    setTimeout(function() {
+		    console.log("world");
+	    }, 1000);
+	    console.log("hello");
  
-</pre>
-	</article>
+	</pre>
+		</article>
 	
-	<article class='fill'>
-		<h3>Node Inspector</h3>
-		<img src="images/overview.png" />
-	</article>
+		<article class='fill'>
+			<h3>Node Inspector</h3>
+			<img src="images/overview.png" />
+		</article>
 	
-	<article class='fill'>
-		<h3>Node Inspector</h3>
-		<img src="images/heap.png" />
-	</article>
+		<article class='fill'>
+			<h3>Node Inspector</h3>
+			<img src="images/heap.png" />
+		</article>
 	
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Netty Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Netty Introduction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-	<article class='biglogo'>
-		<!-- TODO Add Node.js logo -->
-		<img src="images/netty_logo_600px.svg" />
-	</article>
+		<article class='biglogo'>
+			<!-- TODO Add Node.js logo -->
+			<img src="images/netty_logo_600px.svg" />
+		</article>
 
-	<article>
-		<h2>Netty</h2>
-	</article>
+		<article>
+			<h2>Netty</h2>
+		</article>
 
-	<article>
-		<h3>Netty History</h3>
-		<ul class="build">
-			<li>Started in 2003</li>
-			<li>Migrated to Apache Software Foundation as Apache MINA</li>
-			<li>Left Apache and moved to Red Hat/JBoss in 2008</li>
-			<li>Twitter currently employs most Netty contributors</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Netty History</h3>
+			<ul class="build">
+				<li>Started in 2003</li>
+				<li>Migrated to Apache Software Foundation as Apache MINA</li>
+				<li>Left Apache and moved to Red Hat/JBoss in 2008</li>
+				<li>Twitter currently employs most Netty contributors</li>
+			</ul>
+		</article>
 	
-	<article>
-		<h3>Netty Architecture</h3>
-		<div style="margin: 25px;   ">
-			<img src="images/netty-architecture.png" width="100%" />
-		</div>
-	</article>
+		<article>
+			<h3>Netty Architecture</h3>
+			<div style="margin: 25px;   ">
+				<img src="images/netty-architecture.png" width="100%" />
+			</div>
+		</article>
 
-	<article>
-		<h3>Key Netty Features</h3>
-		<ul class="build">
-			<li>Unified event API for Sockets, UDP, SCTP, Infiniband</li>
-			<li>Minimizes memory copies</li>
-			<li>Fair read/write ratio</li>
-			<li>Customizable thread model</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Key Netty Features</h3>
+			<ul class="build">
+				<li>Unified event API for Sockets, UDP, SCTP, Infiniband</li>
+				<li>Minimizes memory copies</li>
+				<li>Fair read/write ratio</li>
+				<li>Customizable thread model</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Netty Pipeline</h3>
-		<div style="margin: 25px; text-align: center">
-			<img src="images/netty_pipeline_after.png" height="90%" />
-		</div>
-	</article>
+		<article>
+			<h3>Netty Pipeline</h3>
+			<div style="margin: 25px; text-align: center">
+				<img src="images/netty_pipeline_after.png" height="90%" />
+			</div>
+		</article>
 
-	<article>
-		<h2>Netty Demo</h2>
-	</article>
+		<article>
+			<h2>Netty Demo</h2>
+		</article>
 
-	<article>
-		<h3>Projects built on Netty</h3>
-		<ul>
-			<li>Vert.x (formerly Node.x)</li>
-			<li>Akka - Scala distributed actor based framework</li>
-			<li>Netty Tools - Simplifies common tasks in Netty</li>
-			<li>AsyncHttpClient - Written by Jean-Francois Arcand (creator of Grizzly)</li>
-			<li>ADBCJ - Asynchronous Database Client</li>
-			<li>Play - Scala based web framework</li>
-			<li>PS3 Media Server</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Projects built on Netty</h3>
+			<ul>
+				<li>Vert.x (formerly Node.x)</li>
+				<li>Akka - Scala distributed actor based framework</li>
+				<li>Netty Tools - Simplifies common tasks in Netty</li>
+				<li>AsyncHttpClient - Written by Jean-Francois Arcand (creator of Grizzly)</li>
+				<li>ADBCJ - Asynchronous Database Client</li>
+				<li>Play - Scala based web framework</li>
+				<li>PS3 Media Server</li>
+			</ul>
+		</article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Threading: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Threading: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/thread.jpg" />
-	    <h3>Threading</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/thread.jpg" />
+		    <h3>Threading</h3>
+	    </article>
 
-    <article>
-        <h3>Concurrency models</h3>
-        <ul>
-            <li>Netty runs on the JVM so it is not tied to a single concurrency model<li>
-            <li>With Netty you can use purely event-driven (ala Node), multi-threaded, actors, etc.</li>
-            <li>Without threads, any heavy computation will prevent events from being processed</li>
-        </ul>
-    </article>
+	    <article>
+	        <h3>Concurrency models</h3>
+	        <ul>
+	            <li>Netty runs on the JVM so it is not tied to a single concurrency model<li>
+	            <li>With Netty you can use purely event-driven (ala Node), multi-threaded, actors, etc.</li>
+	            <li>Without threads, any heavy computation will prevent events from being processed</li>
+	        </ul>
+	    </article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Threading Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Threading Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/tangle.jpg" />
-	    <h3>Threading Rebuttal</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/tangle.jpg" />
+		    <h3>Threading Rebuttal</h3>
+	    </article>
 
-    <article>
-        <h3>Threads</h3>
-        <ul>
-            <li>Easy to write<li>
-            <li>Hard to get right</li>
-            <li>Impossible to debug</li>
-        </ul>
-    </article>
+	    <article>
+	        <h3>Threads</h3>
+	        <ul>
+	            <li>Easy to write<li>
+	            <li>Hard to get right</li>
+	            <li>Impossible to debug</li>
+	        </ul>
+	    </article>
 
-	<article>
-		<h3>Node Cluster</h3>
-		<pre style="line-height: 23px">
+		<article>
+			<h3>Node Cluster</h3>
+			<pre style="line-height: 23px">
 			
-    var cluster = require('cluster');
-    var http = require('http');
-    var numCPUs = require('os').cpus().length;
+	    var cluster = require('cluster');
+	    var http = require('http');
+	    var numCPUs = require('os').cpus().length;
 
-    if (cluster.isMaster) {
-        // Fork workers.
-        for (var i = 0; i < numCPUs; i++) {
-            cluster.fork();
-        }
+	    if (cluster.isMaster) {
+	        // Fork workers.
+	        for (var i = 0; i < numCPUs; i++) {
+	            cluster.fork();
+	        }
 
-        cluster.on('death', function(worker) {
-            console.log('worker ' + worker.pid + ' died');
-        });
-    } else {
-        // Worker processes have a http server.
-        http.Server(function(req, res) {
-            res.writeHead(200);
-            res.end("hello world\n");
-        }).listen(8000);
-    }		
+	        cluster.on('death', function(worker) {
+	            console.log('worker ' + worker.pid + ' died');
+	        });
+	    } else {
+	        // Worker processes have a http server.
+	        http.Server(function(req, res) {
+	            res.writeHead(200);
+	            res.end("hello world\n");
+	        }).listen(8000);
+	    }		
 	
-		</pre>	
-	</article>
+			</pre>	
+		</article>
 	
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Simplicity: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Simplicity: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/piece-of-cake.jpg" />
-	    <h3>Simplicity</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/piece-of-cake.jpg" />
+		    <h3>Simplicity</h3>
+	    </article>
 
-	<article>
-		<h3>Node Scripts</h3>
-<pre>
+		<article>
+			<h3>Node Scripts</h3>
+	<pre>
 
-    setTimeout(function() {
-	    console.log("world");
-    }, 1000);
-    console.log("hello");
+	    setTimeout(function() {
+		    console.log("world");
+	    }, 1000);
+	    console.log("hello");
  
-</pre>
-	</article>
+	</pre>
+		</article>
 	
-	<article>
-		<h3>Classical Java Equivalent</h3>
-<pre>
+		<article>
+			<h3>Classical Java Equivalent</h3>
+	<pre>
  
-    try {
-	    System.out.println("hello");
-	    Thread.sleep(1000);
-	    System.out.println("world");
-    }
-    catch(InteruptedException ie) {
-	    //If this thread was interrupted by another thread 
-    }
+	    try {
+		    System.out.println("hello");
+		    Thread.sleep(1000);
+		    System.out.println("world");
+	    }
+	    catch(InteruptedException ie) {
+		    //If this thread was interrupted by another thread 
+	    }
  
-</pre>
-	</article>
+	</pre>
+		</article>
 
-	<article>
-		<h3>Node Web Server</h3>
-<pre>
-var http = require('http');
+		<article>
+			<h3>Node Web Server</h3>
+	<pre>
+	var http = require('http');
 
-var s = http.createServer(function(req, res) {
-	res.writeHead(200, {'content-type': 'text/plain'});
-	res.end("hello world!");
-});
+	var s = http.createServer(function(req, res) {
+		res.writeHead(200, {'content-type': 'text/plain'});
+		res.end("hello world!");
+	});
 
-s.listen(8000);
-</pre>
-	</article>
+	s.listen(8000);
+	</pre>
+		</article>
 
-	<article>
-		<h3>Node Chat Client</h3>
-<pre>
-var net = require('net'), sockets = [];
-var s = net.Server(function(socket) {
-    sockets.push(socket);
-    socket.on('data', function(d) {
-        for (var i = 0; i < sockets.length; i++) {
-            if (sockets[i] == socket) continue;
-            sockets[i].write(d);
-        }
-    });
-    socket.on('end', function() {
-        var i = sockets.indexOf(socket);
-        sockets.splice(i, 1);
-    });
-});
-s.listen(8089);
-</pre>
-	</article>
+		<article>
+			<h3>Node Chat Client</h3>
+	<pre>
+	var net = require('net'), sockets = [];
+	var s = net.Server(function(socket) {
+	    sockets.push(socket);
+	    socket.on('data', function(d) {
+	        for (var i = 0; i < sockets.length; i++) {
+	            if (sockets[i] == socket) continue;
+	            sockets[i].write(d);
+	        }
+	    });
+	    socket.on('end', function() {
+	        var i = sockets.indexOf(socket);
+	        sockets.splice(i, 1);
+	    });
+	});
+	s.listen(8089);
+	</pre>
+		</article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Simplicity Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Simplicity Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-        <img src="images/bugatti-engine.jpg" />
-        <h3>Simplicity Rebuttal</h3>
-    </article>
+	    <article class='fill'>
+	        <img src="images/bugatti-engine.jpg" />
+	        <h3>Simplicity Rebuttal</h3>
+	    </article>
 
-    <article>
-        <h3>Is Node really simpler?</h3>
-        <ul>
-            <li>Threads can certainly be complicated</li>
-            <li>Purely event-driven code can be even more complicated</li>
-        </ul>
-    </article>
+	    <article>
+	        <h3>Is Node really simpler?</h3>
+	        <ul>
+	            <li>Threads can certainly be complicated</li>
+	            <li>Purely event-driven code can be even more complicated</li>
+	        </ul>
+	    </article>
 
-    <article>
-        <h3>Example Twitter client in Node</h3>
-<pre>
-    function handleRequest(req, resp) {
-        var userId = getUserId(req);
-        lookupTwitterId(userId,
-            function(twitterId, consumerKey, consumerSecret) {
-                cache.lookup(twitterId, function(result)) {
-                    if (result) {
-                        sendTwitterStream(resp, result);
-                    } else {
-                        var twit = new twitter({consumer_key: ... });
-                        twit.stream('user', function(stream) {
-                            sendTwitterStream(resp, stream);
-                            cache.put(twitterId, stream);
-                        });
-                    }
-                }
-            });
-    }
-</pre>
-    </article>
+	    <article>
+	        <h3>Example Twitter client in Node</h3>
+	<pre>
+	    function handleRequest(req, resp) {
+	        var userId = getUserId(req);
+	        lookupTwitterId(userId,
+	            function(twitterId, consumerKey, consumerSecret) {
+	                cache.lookup(twitterId, function(result)) {
+	                    if (result) {
+	                        sendTwitterStream(resp, result);
+	                    } else {
+	                        var twit = new twitter({consumer_key: ... });
+	                        twit.stream('user', function(stream) {
+	                            sendTwitterStream(resp, stream);
+	                            cache.put(twitterId, stream);
+	                        });
+	                    }
+	                }
+	            });
+	    }
+	</pre>
+	    </article>
 
-    <article>
-        <h3>There's a problem with our Node example...</h3>
-        <h2>What do we do if something fails?</h2>
-    </article>
+	    <article>
+	        <h3>There's a problem with our Node example...</h3>
+	        <h2>What do we do if something fails?</h2>
+	    </article>
     
-    <article>
-        <h3>Revised Twitter client in Node</h3>
-<pre>
-    function handleRequest(req, resp) {
-        var userId = getUserId(req);
-        lookupTwitterId(userId,
-            function(error, twitterId, consumerKey, consumerSecret) {
-                if (error) { sendErrorResponse(error, resp); }
-                cache.lookup(twitterId, function(error, result)) {
-                    if (error) { sendErrorResponse(error, resp); }
-                    if (result) {
-                        sendTwitterStream(resp, result);
-                    } else {
-                        var twit = new twitter({consumer_key: ... });
-                        twit.stream('user', function(error, stream) {
-                            if (error) { sendErrorResponse(error, resp); }
-                            sendTwitterStream(resp, stream);
-                            cache.put(twitterId, stream, 300);
-                        });
-                    }
-                }
-            });
-    }
-</pre>
-    </article>
+	    <article>
+	        <h3>Revised Twitter client in Node</h3>
+	<pre>
+	    function handleRequest(req, resp) {
+	        var userId = getUserId(req);
+	        lookupTwitterId(userId,
+	            function(error, twitterId, consumerKey, consumerSecret) {
+	                if (error) { sendErrorResponse(error, resp); }
+	                cache.lookup(twitterId, function(error, result)) {
+	                    if (error) { sendErrorResponse(error, resp); }
+	                    if (result) {
+	                        sendTwitterStream(resp, result);
+	                    } else {
+	                        var twit = new twitter({consumer_key: ... });
+	                        twit.stream('user', function(error, stream) {
+	                            if (error) { sendErrorResponse(error, resp); }
+	                            sendTwitterStream(resp, stream);
+	                            cache.put(twitterId, stream, 300);
+	                        });
+	                    }
+	                }
+	            });
+	    }
+	</pre>
+	    </article>
 
-    <article>
-        <h3>Netty Gives You More Options</h3>
-        <ul>
-            <li>Netty isn't constrained to a single model for concurrency</li>
-            <li>Has a powerful event-driven model where scalability is needed</li>
-            <li>Lets you step down to an imperative model for simplicity using threads</li>
-        </ul>
-    </article>
+	    <article>
+	        <h3>Netty Gives You More Options</h3>
+	        <ul>
+	            <li>Netty isn't constrained to a single model for concurrency</li>
+	            <li>Has a powerful event-driven model where scalability is needed</li>
+	            <li>Lets you step down to an imperative model for simplicity using threads</li>
+	        </ul>
+	    </article>
 
-    <article>
-        <h3>Example Twitter Client in Netty</h3>
-<pre>
-    public void handleRequest(HttpRequest req, Channel channel) {
-        try {
-            String userId = getUserId(req);
-            TwitterCredentials creds = lookupTwitterCreds(userId);
-            Twitter twitter = new TwitterTemplate(creds);
-            Stream stream = fetchStream(userId, twitter);
-            sendTwitterStream(channel, stream);
-        } catch (Exception e) {
-            sendErrorResponse(e, channel);
-        }
-    }
+	    <article>
+	        <h3>Example Twitter Client in Netty</h3>
+	<pre>
+	    public void handleRequest(HttpRequest req, Channel channel) {
+	        try {
+	            String userId = getUserId(req);
+	            TwitterCredentials creds = lookupTwitterCreds(userId);
+	            Twitter twitter = new TwitterTemplate(creds);
+	            Stream stream = fetchStream(userId, twitter);
+	            sendTwitterStream(channel, stream);
+	        } catch (Exception e) {
+	            sendErrorResponse(e, channel);
+	        }
+	    }
     
-    @ResponseCache(lifetime=300)
-    Stream fetchStream(@CacheKey String userId, Twitter twitter) {
-        return twit.userStream();
-    }
-</pre>
-    </article>
+	    @ResponseCache(lifetime=300)
+	    Stream fetchStream(@CacheKey String userId, Twitter twitter) {
+	        return twit.userStream();
+	    }
+	</pre>
+	    </article>
     
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Performance: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Performance: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/bugatti-veyron.jpg" />
-	    <h3>Performance</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/bugatti-veyron.jpg" />
+		    <h3>Performance</h3>
+	    </article>
 
-    <article class='fill'>
-        <img src="images/chart_1.png" />
+	    <article class='fill'>
+	        <img src="images/chart_1.png" />
            
-    </article>
+	    </article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Performance Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Performance Rebuttal: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/honda-bike.jpg" />
-	    <h3>Performance Rebuttal</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/honda-bike.jpg" />
+		    <h3>Performance Rebuttal</h3>
+	    </article>
 
-	<article>
-		<h3>Browser Wars</h3>
-		<h2>JavaScript performance has received unprecedented attention over the past 5 year resulting in massive performance gains</h2>
-	</article>
+		<article>
+			<h3>Browser Wars</h3>
+			<h2>JavaScript performance has received unprecedented attention over the past 5 year resulting in massive performance gains</h2>
+		</article>
 
-	<article>
-		<h3>JavaScript Performance</h3>
-		<ul class="build">
-			<li>Sep 2008 - Google shows V8 is 8 times faster than IE7</li>
-			<li>May 2009 - Google reports 100x performance improvement since 2001</li>
-			<li>Mar 2011 - Mozilla benchmarks FireFox 4 between 3-6 times faster</li>
-			<li>Oct 2011 - Apple benchmarks new Nitro 2.5 times faster</li>
-		</ul>
-	</article>
+		<article>
+			<h3>JavaScript Performance</h3>
+			<ul class="build">
+				<li>Sep 2008 - Google shows V8 is 8 times faster than IE7</li>
+				<li>May 2009 - Google reports 100x performance improvement since 2001</li>
+				<li>Mar 2011 - Mozilla benchmarks FireFox 4 between 3-6 times faster</li>
+				<li>Oct 2011 - Apple benchmarks new Nitro 2.5 times faster</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Node Performance Improvements (Linux) in v0.6.0</h3>
-		<ul class="build">
-			<li>http - 15%</li>
-			<li>io read - 35%</li>
-			<li>startup - 51%</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Node Performance Improvements (Linux) in v0.6.0</h3>
+			<ul class="build">
+				<li>http - 15%</li>
+				<li>io read - 35%</li>
+				<li>startup - 51%</li>
+			</ul>
+		</article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Problem Fit: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Problem Fit: Node ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/honda-indy-car.JPG" />
-	    <h3>Right Tool: Language Fit</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/honda-indy-car.JPG" />
+		    <h3>Right Tool: Language Fit</h3>
+	    </article>
 
-	<article>
-		<h3>Evolution in Modern Web Development</h3>
-		<ul class="build">
-			<li>SQL > Relational > Java > HTML</li>
-			<li>SQL > Relational > Java > JSON > JavaScript > HTML</li>
-			<li>JavaScript (map/reduce) > JSON > Java > JSON > JavaScript > HTML</li>
-			<li>JavaScript (map/reduce) > JSON > JavaScript > JSON > JavaScript > HTML</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Evolution in Modern Web Development</h3>
+			<ul class="build">
+				<li>SQL > Relational > Java > HTML</li>
+				<li>SQL > Relational > Java > JSON > JavaScript > HTML</li>
+				<li>JavaScript (map/reduce) > JSON > Java > JSON > JavaScript > HTML</li>
+				<li>JavaScript (map/reduce) > JSON > JavaScript > JSON > JavaScript > HTML</li>
+			</ul>
+		</article>
 
-	<article>
-		<h2>Node abstracts away the problem in a way that other platforms cannot.  They cannot because of enormous repositories of blocking libraries.</h2>
-	</article>
+		<article>
+			<h2>Node abstracts away the problem in a way that other platforms cannot.  They cannot because of enormous repositories of blocking libraries.</h2>
+		</article>
 	
-	<article>
-		<h3>Modules</h3>
-		<ul class="build">
-			<li>npm</li>
-			<li>socket.io</li>
-			<li>express</li>
-			<li>hundreds more</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Modules</h3>
+			<ul class="build">
+				<li>npm</li>
+				<li>socket.io</li>
+				<li>express</li>
+				<li>hundreds more</li>
+			</ul>
+		</article>
 
-	<article>
-		<h3>Modules Examples</h3>
-		<ul class="build">
-			<li>Templating: 45</li>
-			<li>Build/Deployment: 31</li>
-			<li>Message Queues: 5</li>
-			<li>Testing Frameworks: 47</li>
-			<li>Compression: 12</li>
-			<li>I18n and L10n: 10</li>
-		</ul>
-	</article>
+		<article>
+			<h3>Modules Examples</h3>
+			<ul class="build">
+				<li>Templating: 45</li>
+				<li>Build/Deployment: 31</li>
+				<li>Message Queues: 5</li>
+				<li>Testing Frameworks: 47</li>
+				<li>Compression: 12</li>
+				<li>I18n and L10n: 10</li>
+			</ul>
+		</article>
 
-<!-- 	<article>
-		<h3>Documentation</h3>
-		<ul class="build">
-			<li>Good API Documentation</li>
-			<li>7 free node.js books</li>
-		</ul>
-	</article> -->
+	<!-- 	<article>
+			<h3>Documentation</h3>
+			<ul class="build">
+				<li>Good API Documentation</li>
+				<li>7 free node.js books</li>
+			</ul>
+		</article> -->
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Problem Fit Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Problem Fit Rebuttal: Netty ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/audi-shark.JPG" />
-	    <h3>Right Tool Rebuttal: Language Fit</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/audi-shark.JPG" />
+		    <h3>Right Tool Rebuttal: Language Fit</h3>
+	    </article>
 
-    <article>
-        <h3>Netty is Not Limited to the Java Language</h3>
-        <ul>
-            <li>Many different languages run on the JVM</li>
-            <li>Scala and Clojure are probably even better than JavaScript for writing event-driven code</li>
-            <li>Node doesn't have a monopoly on server-side JavaScript (JavaScript runs on the JVM too!)</li>
-        </ul>
-    </article>
+	    <article>
+	        <h3>Netty is Not Limited to the Java Language</h3>
+	        <ul>
+	            <li>Many different languages run on the JVM</li>
+	            <li>Scala and Clojure are probably even better than JavaScript for writing event-driven code</li>
+	            <li>Node doesn't have a monopoly on server-side JavaScript (JavaScript runs on the JVM too!)</li>
+	        </ul>
+	    </article>
 
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~ Conclusion ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~ Conclusion ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <article class='fill'>
-		<img src="images/excavator.jpg" />
-	    <h3>Conclusion</h3>
-    </article>
+	    <article class='fill'>
+			<img src="images/excavator.jpg" />
+		    <h3>Conclusion</h3>
+	    </article>
 
-</section>
-
+	</section>
+	<div class='canvas'>
+		<canvas id='canvas' width='700' height='100'/>
+	</div>
 </body>
 </html>
