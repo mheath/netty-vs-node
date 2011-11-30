@@ -1,4 +1,4 @@
 console.log('hello');
-setInterval(function() {
+setTimeout(function() {
 	console.log('world');
 },1000);
